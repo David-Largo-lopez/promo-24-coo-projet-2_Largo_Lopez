@@ -1,38 +1,50 @@
 package duckcorp.duck;
 
+import java.util.Objects;
+
 /**
  * Classe abstraite représentant un canard en plastique.
  *
  * TODO (Ex1) :
- *   - Faites implémenter l'interface Qualifiable à cette classe
- *   - Implémentez equals() et hashCode() basés uniquement sur l'id
- *   - Implémentez les méthodes abstraites dans les sous-classes
+ * - Faites implémenter l'interface Qualifiable à cette classe
+ * - Implémentez equals() et hashCode() basés uniquement sur l'id
+ * - Implémentez les méthodes abstraites dans les sous-classes
+ * 
  * @author Roussille Philippe <roussille@3il.fr>
  */
-public abstract class Duck {
+public abstract class Duck implements Qualifiable {
 
     private static int counter = 0;
 
-    private final String   id;
+    private final String id;
     private final DuckType type;
-    private final int      qualityScore;
+    private final int qualityScore;
 
     /** Constructeur fourni. Génère automatiquement un identifiant unique. */
     protected Duck(DuckType type, int qualityScore) {
-        this.id           = type.name().charAt(0) + String.format("%04d", ++counter);
-        this.type         = type;
+        this.id = type.name().charAt(0) + String.format("%04d", ++counter);
+        this.type = type;
         this.qualityScore = Math.max(0, Math.min(100, qualityScore));
     }
 
     // --- Getters fournis ---
 
-    public String   getId()          { return id; }
-    public DuckType getType()        { return type; }
-    public int      getQualityScore(){ return qualityScore; }   // satisfera Qualifiable
+    public String getId() {
+        return id;
+    }
+
+    public DuckType getType() {
+        return type;
+    }
+
+    public int getQualityScore() {
+        return qualityScore;
+    } // satisfera Qualifiable
 
     // --- Méthodes abstraites à implémenter dans les sous-classes ---
 
     public abstract double getBasePrice();
+
     public abstract String describe();
 
     // --- TODO : equals et hashCode ---
@@ -43,13 +55,18 @@ public abstract class Duck {
      */
     @Override
     public boolean equals(Object o) {
-        throw new UnsupportedOperationException("TODO : Duck.equals()");
+        if (this == o)
+            return true;
+        if (o == null || getClass() != o.getClass())
+            return false;
+        Duck duck = (Duck) o;
+        return Objects.equals(id, duck.id);
     }
 
     /** TODO : implémentez hashCode() de façon cohérente avec equals(). */
     @Override
     public int hashCode() {
-        throw new UnsupportedOperationException("TODO : Duck.hashCode()");
+        return Objects.hash(id);
     }
 
     // --- toString fourni ---
