@@ -11,3 +11,8 @@ La regle Java qui m'aurait empêché de faire l'inverse est l'héritage simple. 
  Si Maintainable était une classe abstraite, une machine ne pourrait hériter de rien d'autre.
 
  On choisi une Interface comme Maintainable pour définir un contrat de comportement un "sait-faire" comment cetait signaler dans les interrogations faites. Une classe peut implémenter plusieurs interfaces.
+
+ ## Question (Ex4) : Expliquez pourquoi canBeFulfilled(Stock<Duck> stock) serait une signature plus restrictive que canBeFulfilled(Stock<? extends Duck> stock). Donnez un exemple.
+
+les types génériques sont invariants, même si StandardDuck hérite de Duck, une liste Stock StandardDuck n'hérite pas de Stock Duck.
+Si la signature était canBeFulfilled(Stock Duck stock), le compilateur exigerait exactement un Stock Duck. Le joker ? extends Duck la fameusse covariance que permet de re liverer  cette contrainte et d'accepter nimporte quel stock contenant un soustype de Duck.
