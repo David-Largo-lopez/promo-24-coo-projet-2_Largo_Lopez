@@ -12,21 +12,22 @@ import java.util.List;
 /**
  * Boucle de jeu principale — 8 tours.
  * Fichier fourni — ne pas modifier.
+ * 
  * @author Roussille Philippe <roussille@3il.fr>
  */
 public class Game {
 
-    private static final int    MAX_TURNS      = 8;
+    private static final int MAX_TURNS = 8;
     private static final double INITIAL_BUDGET = 5_000.0;
 
-    private final Factory  factory;
-    private final Market   market;
-    private final Console  console;
+    private final Factory factory;
+    private final Market market;
+    private final Console console;
     private final List<Order> activeOrders = new ArrayList<>();
 
     public Game() {
         this.factory = new Factory(INITIAL_BUDGET);
-        this.market  = new Market();
+        this.market = new Market();
         this.console = new Console();
     }
 
@@ -111,16 +112,28 @@ public class Game {
     private List<Order> getPending() {
         List<Order> result = new ArrayList<>();
         for (Order o : activeOrders) {
-            if (o.getStatus() == OrderStatus.PENDING) result.add(o);
+            if (o.getStatus() == OrderStatus.PENDING)
+                result.add(o);
         }
         return result;
     }
 
     /**
-     * TODO (Ex2) : instanciez et retournez la bonne sous-classe de Machine selon le choix.
-     *   1 -> StandardPress  /  2 -> MiniPress  /  3 -> LuxuryMold
+     * TODO (Ex2) : instanciez et retournez la bonne sous-classe de Machine selon le
+     * choix.
+     * 1 -> StandardPress / 2 -> MiniPress / 3 -> LuxuryMold
      */
     private Machine createMachine(int choice) {
-        throw new UnsupportedOperationException("TODO : Game.createMachine()");
+        switch (choice) {
+            case 1:
+                return new duckcorp.machine.StandardPress();
+            case 2:
+                return new duckcorp.machine.MiniPress();
+            case 3:
+                return new duckcorp.machine.LuxuryMold();
+            default:
+                return null;
+        }
+
     }
 }
